@@ -28,26 +28,52 @@ function App() {
   const ensureMusic = () => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.muted = false;
+
     audio.volume = 0.7;
-    if (music) {
-      audio.play().catch(() => undefined);
+    audio.muted = false;
+
+    if (!music) {
+      audio.pause();
+      return;
     }
+
+    audio.play().catch(() => {
+      setTimeout(() => {
+        if (audio && music) {
+          audio.play().catch(() => undefined);
+        }
+      }, 250);
+    });
   };
   useEffect(() => { const timer = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(timer); }, []);
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (music) {
-      audio.play().catch(() => undefined);
+      const startAttempt = () => {
+        audio.volume = 0.7;
+        audio.muted = false;
+        audio.play().catch(() => undefined);
+      };
+      startAttempt();
+      const retryTimer = setTimeout(startAttempt, 350);
+      return () => clearTimeout(retryTimer);
     } else {
       audio.pause();
     }
   }, [music]);
   useEffect(() => {
-    const startMusicOnInteraction = () => ensureMusic();
-    window.addEventListener('pointerdown', startMusicOnInteraction, { once: true });
-    return () => window.removeEventListener('pointerdown', startMusicOnInteraction);
+    const startMusicOnInteraction = () => {
+      setTimeout(() => ensureMusic(), 100);
+    };
+    window.addEventListener('pointerdown', startMusicOnInteraction, { passive: true });
+    window.addEventListener('touchstart', startMusicOnInteraction, { passive: true });
+    window.addEventListener('keydown', startMusicOnInteraction, { passive: true });
+    return () => {
+      window.removeEventListener('pointerdown', startMusicOnInteraction);
+      window.removeEventListener('touchstart', startMusicOnInteraction);
+      window.removeEventListener('keydown', startMusicOnInteraction);
+    };
   }, [music]);
   const handleTouchStart = (event) => { setTouchStartX(event.touches[0].clientX); };
   const handleTouchEnd = (event) => {
