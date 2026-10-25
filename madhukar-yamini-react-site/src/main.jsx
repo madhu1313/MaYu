@@ -115,7 +115,7 @@ function App() {
           <p className="invite-line">Together with our families, we invite you to celebrate</p>
           <h1><span>Madhukar Reddy</span><i>&</i><span>Yamini</span></h1>
           <div className="gold-rule"><b>✦</b></div><p className="date-line">FRIDAY <span>•</span> 20 NOVEMBER 2026 <span>•</span> 09:39 AM</p>
-          {!opened ? <button className="open-invite" onClick={() => { setOpened(true); ensureMusic(); }}>Open the Invitation <ChevronDown size={17}/></button> : <a className="open-invite" href="#story" onClick={ensureMusic}>Explore our celebration <ChevronDown size={17}/></a>}
+          {!opened ? <button className="open-invite" onClick={() => { setOpened(true); ensureMusic(); }}>Open the Invitation <ChevronDown size={17}/></button> : <button className="open-invite" type="button" onClick={ensureMusic}>Explore our celebration <ChevronDown size={17}/></button>}
         </div><div className="hero-ornament bottom">❦</div><div className="scroll-cue"><span/> SCROLL TO EXPLORE</div>
       </section>
       <section className="intro section" id="story"><p className="eyebrow">TWO HEARTS · ONE BEAUTIFUL JOURNEY</p><h2>A story written in the stars</h2><div className="small-rule">✦</div><p className="intro-copy">Some journeys are destined to meet. With the love of our families and the blessings of our elders, we begin a new chapter together. It would mean the world to us to have you by our side as we celebrate the beginning of forever.</p><div className="signature">Madhukar <span>&</span> Yamini</div></section>
