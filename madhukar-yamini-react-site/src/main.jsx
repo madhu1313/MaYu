@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { MapPin, CalendarDays, Music2, VolumeX, Heart, Sparkles, ChevronDown, Play, Pause } from 'lucide-react';
+import { MapPin, CalendarDays, Music2, VolumeX, Heart, Sparkles, Play, Pause } from 'lucide-react';
 import './style.css';
 
 const MAPS = 'https://maps.app.goo.gl/iFpp625BZY8nk6Sw8';
@@ -15,7 +15,6 @@ const GALLERY_IMAGES = [
 ];
 
 function App() {
-  const [opened, setOpened] = useState(false);
   const [now, setNow] = useState(Date.now());
   const [music, setMusic] = useState(true);
   const [muhurthamRevealed, setMuhurthamRevealed] = useState(false);
@@ -139,7 +138,7 @@ function App() {
         </div>
       </nav>
       <main>
-        <section className={`hero ${opened ? 'revealed' : ''}`} id="home">
+        <section className="hero" id="home">
           <div className="hero-image" />
           <div className="hero-shade" />
           <div className="hero-ornament top">❦</div>
@@ -154,16 +153,7 @@ function App() {
             </h1>
             <div className="gold-rule"><b>✦</b></div>
             <p className="date-line">FRIDAY <span>•</span> 20 NOVEMBER 2026 <span>•</span> 09:39 AM</p>
-            <button
-              className="open-invite"
-              type="button"
-              onClick={() => {
-                setOpened(true);
-                ensureMusic();
-              }}
-            >
-              Explore our celebration <ChevronDown size={17} />
-            </button>
+            <p className="invite-line">Explore our celebration</p>
           </div>
           <div className="hero-ornament bottom">❦</div>
           <div className="scroll-cue"><span /> SCROLL TO EXPLORE</div>
