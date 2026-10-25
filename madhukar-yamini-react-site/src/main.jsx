@@ -25,55 +25,32 @@ function App() {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [touchStartX, setTouchStartX] = useState(null);
   const audioRef = useRef(null);
-  const ensureMusic = () => {
+
+  const ensureMusic = (shouldPlay = music) => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    audio.volume = 0.7;
-    audio.muted = false;
-
-    if (!music) {
+    if (!shouldPlay) {
       audio.pause();
       return;
     }
 
-    audio.play().catch(() => {
-      setTimeout(() => {
-        if (audio && music) {
-          audio.play().catch(() => undefined);
-        }
-      }, 250);
-    });
+    audio.volume = 0.7;
+    audio.muted = false;
+    audio.play().catch(() => undefined);
   };
+
   useEffect(() => { const timer = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(timer); }, []);
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (music) {
-      const startAttempt = () => {
-        audio.volume = 0.7;
-        audio.muted = false;
-        audio.play().catch(() => undefined);
-      };
-      startAttempt();
-      const retryTimer = setTimeout(startAttempt, 350);
-      return () => clearTimeout(retryTimer);
+      audio.volume = 0.7;
+      audio.muted = false;
+      audio.play().catch(() => undefined);
     } else {
       audio.pause();
     }
-  }, [music]);
-  useEffect(() => {
-    const startMusicOnInteraction = () => {
-      setTimeout(() => ensureMusic(), 100);
-    };
-    window.addEventListener('pointerdown', startMusicOnInteraction, { passive: true });
-    window.addEventListener('touchstart', startMusicOnInteraction, { passive: true });
-    window.addEventListener('keydown', startMusicOnInteraction, { passive: true });
-    return () => {
-      window.removeEventListener('pointerdown', startMusicOnInteraction);
-      window.removeEventListener('touchstart', startMusicOnInteraction);
-      window.removeEventListener('keydown', startMusicOnInteraction);
-    };
   }, [music]);
   const handleTouchStart = (event) => { setTouchStartX(event.touches[0].clientX); };
   const handleTouchEnd = (event) => {
@@ -150,8 +127,8 @@ function App() {
       <section className="closing"><div className="closing-ornament">❦</div><p className="eyebrow">{telugu ? 'మీ ఉనికే మా బహుమతి' : 'YOUR PRESENCE IS OUR PRESENT'}</p><h2>{telugu ? <><span>మా వేడుకను జరుపుకోవడానికి</span><br/><em>ఎందరో ఎదురుచూస్తున్నాము.</em></> : <>We can’t wait to celebrate <em>with you.</em></>}</h2><p>{telugu ? 'ప్రేమ మరియు కృతజ్ఞతలతో,' : 'With love and gratitude,'}</p><div className="signature">Madhukar <span>&</span> Yamini</div><a className="gold-button" href={MAPS} target="_blank" rel="noreferrer"><MapPin size={17}/> {telugu ? 'వేదికను కనుగొనండి' : 'Find the Venue'}</a></section>
     </main>
     <footer><div className="footer-monogram">M <span>♥</span> Y</div><p>{telugu ? 'ప్రేమతో తయారు చేయబడింది · 20.11.2026' : 'MADE WITH LOVE · 20.11.2026'}</p><small>{telugu ? 'మా కుటుంబాల మరియు పెద్దల ఆశీర్వాదంతో' : 'With the blessings of our families and elders'}</small></footer>
-    <audio ref={audioRef} src={SONG_SRC} autoPlay={false} loop playsInline />
-    <button className="music-button" aria-label={music ? 'Pause ambient music' : 'Play ambient music'} onClick={() => { setMusic(!music); ensureMusic(); }} title="Music control">{music ? <Pause size={18}/> : <Play size={18}/>} <span>{music ? (telugu ? 'సంగీతం ఆపు' : 'Pause music') : (telugu ? 'సంగీతం' : 'Music')}</span></button>
+    <audio ref={audioRef} src={SONG_SRC} autoPlay loop playsInline />
+    <button className="music-button" aria-label={music ? 'Pause ambient music' : 'Play ambient music'} onClick={() => { setMusic((prev) => { const next = !prev; ensureMusic(next); return next; }); }} title="Music control">{music ? <Pause size={18}/> : <Play size={18}/>} <span>{music ? (telugu ? 'సంగీతం ఆపు' : 'Pause music') : (telugu ? 'సంగీతం' : 'Music')}</span></button>
   </div>
 }
 
