@@ -1,0 +1,24 @@
+{
+  "name": "madhukar-yamini-wedding",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "homepage": "https://your-username.github.io/your-repo-name",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 4173",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "lucide-react": "^0.468.0",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
