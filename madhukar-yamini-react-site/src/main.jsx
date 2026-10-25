@@ -43,6 +43,14 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!music) return;
+
+    const startMusicOnInteraction = () => ensureMusic(true);
+    window.addEventListener('pointerdown', startMusicOnInteraction, { once: true });
+    return () => window.removeEventListener('pointerdown', startMusicOnInteraction);
+  }, [music]);
+
+  useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
