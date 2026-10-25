@@ -154,21 +154,16 @@ function App() {
             </h1>
             <div className="gold-rule"><b>✦</b></div>
             <p className="date-line">FRIDAY <span>•</span> 20 NOVEMBER 2026 <span>•</span> 09:39 AM</p>
-            {!opened ? (
-              <button
-                className="open-invite"
-                onClick={() => {
-                  setOpened(true);
-                  ensureMusic();
-                }}
-              >
-                Open the Invitation <ChevronDown size={17} />
-              </button>
-            ) : (
-              <button className="open-invite" type="button" onClick={ensureMusic}>
-                Explore our celebration <ChevronDown size={17} />
-              </button>
-            )}
+            <button
+              className="open-invite"
+              type="button"
+              onClick={() => {
+                setOpened(true);
+                ensureMusic();
+              }}
+            >
+              Explore our celebration <ChevronDown size={17} />
+            </button>
           </div>
           <div className="hero-ornament bottom">❦</div>
           <div className="scroll-cue"><span /> SCROLL TO EXPLORE</div>
