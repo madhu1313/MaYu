@@ -9,10 +9,8 @@ const VENUE = 'Harmony Courtyard, near AVN College of Engineering, Hayathnagar K
 const SONG_SRC = encodeURI('/assets/Seetha Kalyanam - SenSongsMp3.Co.mp3');
 const GALLERY_IMAGES = [
   { src: '/assets/madhukar-yamini-original-couple.jpeg', label: 'Our favourite beginning' },
-  { src: '/assets/madhukar-yamini-ghibli-mandap.png', label: 'Our sacred mandap moments' },
   { src: '/assets/MSR_3412.jpg', label: 'A joyful memory' },
   { src: '/assets/MSR_3443.jpg', label: 'Together in every moment' },
-  { src: '/assets/MSR_4435.jpg', label: 'A smile that stays with us' },
   { src: '/assets/MSR_7333.jpg', label: 'Forever begins here' },
 ];
 
