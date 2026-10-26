@@ -128,7 +128,7 @@ function App() {
 
   return (
     <div className="site">
-      <div className="topline"><span>✦</span> MAHIKA WEDDING <span>✦</span></div>
+      <div className="topline"><span>✦</span> MaYu's WEDDING <span>✦</span></div>
       <nav className="nav">
         <a href="#home" className="brand">M <span>♥</span> Y</a>
         <div className="navlinks">
