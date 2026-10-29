@@ -44,9 +44,27 @@ function App() {
   useEffect(() => {
     if (!music) return;
 
-    const startMusicOnInteraction = () => ensureMusic(true);
-    window.addEventListener('pointerdown', startMusicOnInteraction, { once: true });
-    return () => window.removeEventListener('pointerdown', startMusicOnInteraction);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const startMusicOnInteraction = () => {
+      audio.volume = 0.7;
+      audio.muted = false;
+      audio.play().then(() => {
+        window.removeEventListener('pointerdown', startMusicOnInteraction);
+        window.removeEventListener('touchend', startMusicOnInteraction);
+        window.removeEventListener('click', startMusicOnInteraction);
+      }).catch(() => undefined);
+    };
+
+    window.addEventListener('pointerdown', startMusicOnInteraction, { passive: true });
+    window.addEventListener('touchend', startMusicOnInteraction, { passive: true });
+    window.addEventListener('click', startMusicOnInteraction);
+    return () => {
+      window.removeEventListener('pointerdown', startMusicOnInteraction);
+      window.removeEventListener('touchend', startMusicOnInteraction);
+      window.removeEventListener('click', startMusicOnInteraction);
+    };
   }, [music]);
 
   useEffect(() => {
